@@ -11,8 +11,7 @@
 module load repet/2.5
 
 # REPET - Step 4 - Structural
-MLT_ALIGNER="Map"
 
-if [ ! -d "${ProjectName}_*_${MLT_ALIGNER}" ]; then
+if [ ! -d "${ProjectName}_"*"_${MLT_ALIGNER}" ]; then
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 4 --struct -m $MLT_ALIGNER
 fi

@@ -15,6 +15,6 @@ module load repet/2.5
 
 CLUSTERER=${CLUSTERERS_AVAIL[$SLURM_ARRAY_TASK_ID]}
 
-if [ ! -d "${ProjectName}_${SMPL_ALIGNER}_${CLUSTERER}_Map" ]; then
-    TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 4 -s $SMPL_ALIGNER -c $CLUSTERER -m Map
+if [ ! -d "${ProjectName}_${SMPL_ALIGNER}_${CLUSTERER}_${MLT_ALIGNER}" ]; then
+    TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 4 -s $SMPL_ALIGNER -c $CLUSTERER -m $MLT_ALIGNER
 fi
