@@ -18,7 +18,7 @@ MYSQL_USER=$(grep "repet_user" TEdenovo.cfg | cut -d" " -f2)
 MYSQL_PASS=$(grep "repet_pw" TEdenovo.cfg | cut -d" " -f2)
 MYSQL_DB=$(grep "repet_db" TEdenovo.cfg | cut -d" " -f2)
 
-echo "DROP TABLE jobs;" | mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS $MYSQL_DB
+echo "DROP TABLE IF EXISTS jobs;" | mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS $MYSQL_DB
 
 # Set Project-Specific Variables
 export ProjectName="Fairchild"
@@ -36,8 +36,8 @@ jid_step2s=$(sbatch --export=ProjectName --kill-on-invalid-dep=yes --dependency=
 jid_step3=$(sbatch --export=ProjectName,SMPL_ALIGNER,CLUSTERERS_AVAIL --kill-on-invalid-dep=yes --dependency=afterok:$jid_step2 REPET_Step3.sh | cut -d" " -f4)
 jid_step3s=$(sbatch --export=ProjectName --kill-on-invalid-dep=yes --dependency=afterok:$jid_step2s REPET_Step3s.sh | cut -d" " -f4)
 
-jid_step4=$(sbatch --export=ProjectName,SMPL_ALIGNER,CLUSTERERS_AVAIL --kill-on-invalid-dep=yes --dependency=afterok:$jid_step3 REPET_Step4.sh | cut -d" " -f4)
-jid_step4s=$(sbatch --export=ProjectName --kill-on-invalid-dep=yes --dependency=afterok:$jid_step3s REPET_Step4s.sh | cut -d" " -f4)
+jid_step4=$(sbatch --export=ProjectName,SMPL_ALIGNER,CLUSTERERS_AVAIL,MLT_ALIGNER --kill-on-invalid-dep=yes --dependency=afterok:$jid_step3 REPET_Step4.sh | cut -d" " -f4)
+jid_step4s=$(sbatch --export=ProjectName,MLT_ALIGNER --kill-on-invalid-dep=yes --dependency=afterok:$jid_step3s REPET_Step4s.sh | cut -d" " -f4)
 
 jid_step5=$(sbatch --export=ProjectName,SMPL_ALIGNER,CLUSTERERS,MLT_ALIGNER --kill-on-invalid-dep=yes --dependency=afterok:$jid_step4:$jid_step4s REPET_Step5.sh | cut -d" " -f4)
 
