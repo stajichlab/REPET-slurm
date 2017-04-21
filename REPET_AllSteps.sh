@@ -10,6 +10,17 @@
 
 # REPET - Whole Pipeline Scheduler
 
+# Setup/Reset MySQL Database for new run
+# WARNING: Do NOT drop the "jobs" table if multiple instances of REPET
+#          are concurrently using the same database
+MYSQL_HOST=$(grep "repet_host" TEdenovo.cfg | cut -d" " -f2)
+MYSQL_USER=$(grep "repet_user" TEdenovo.cfg | cut -d" " -f2)
+MYSQL_PASS=$(grep "repet_pw" TEdenovo.cfg | cut -d" " -f2)
+MYSQL_DB=$(grep "repet_db" TEdenovo.cfg | cut -d" " -f2)
+
+echo "DROP TABLE jobs;" | mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS $MYSQL_DB
+
+# Set Project-Specific Variables
 export ProjectName="Fairchild"
 export SMPL_ALIGNER="Blaster"
 export CLUSTERERS_AVAIL=("Grouper" "Recon")
