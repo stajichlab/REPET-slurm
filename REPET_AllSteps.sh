@@ -18,12 +18,16 @@ MYSQL_USER=$(grep "repet_user" TEdenovo.cfg | cut -d" " -f2)
 MYSQL_PASS=$(grep "repet_pw" TEdenovo.cfg | cut -d" " -f2)
 MYSQL_DB=$(grep "repet_db" TEdenovo.cfg | cut -d" " -f2)
 
-echo "DROP TABLE IF EXISTS jobs;" | mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS $MYSQL_DB
+# Clear the job table if last run failed while sub-jobs were running
+# NOTE: Don't worry if this gives an error saying the "jobs" table
+#       doesn't exist because TRUNCATE doesn't support checking
+#       whether a table exists first
+echo "TRUNCATE TABLE jobs;" | mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS $MYSQL_DB
 
 # Set Project-Specific Variables
 export ProjectName="Fairchild"
 export SMPL_ALIGNER="Blaster"
-export CLUSTERERS_AVAIL=("Grouper" "Recon")
+export CLUSTERERS_AVAIL="Grouper,Recon"
 export CLUSTERERS="GrpRec"
 export MLT_ALIGNER="Map"
 export FINAL_CLUSTERER="Blastclust"
