@@ -1,0 +1,71 @@
+[repet_env]
+repet_version: 2.5
+repet_host: bioclusterdb
+repet_user: $USER$
+repet_pw: $PASSWORD$
+repet_db: $MYSQLDB$
+repet_port: 3306
+repet_job_manager: slurm
+
+[project]
+project_name: $PROJECT_NAME$
+project_dir: $PROJECT_DIRECTORY$
+
+[prepare_data]
+chunk_length: 200000
+chunk_overlap: 10000
+min_nb_seq_per_batch: 5
+make_random_chunks: yes
+
+[parallelized_jobs]
+resources:  --mem=4G
+tmpDir:  /scratch
+copy: no
+clean: yes
+
+[align_refTEs_with_genome]
+BLR_blast: blastplus
+BLR_sensitivity: 3
+RM_engine: ncbi
+RM_sensitivity: s
+CEN_blast: ncbi
+
+[filter]
+force_default_values: no
+BLR: 100
+RM: 100
+CEN: 100
+
+[SSR_detect]
+RMSSR_engine: cm
+TRFmaxPeriod: 15
+
+[align_other_banks]
+bankBLRtx: RepBase_REPET_nt.fa
+bankBLRx: RepBase_REPET_aa.faa
+
+[annot_processing]
+min_size: 20
+do_join: yes
+join_max_gap_size: 5000
+join_max_mismatch_size: 500
+join_id_tolerance: 2
+join_TEinsert_cov: 0.95
+join_overlap: 15
+join_minlength_split: 100
+
+[export]
+sequences: chromosomes
+add_SSRs: no
+add_tBx: no
+add_Bx: no
+rmv_overlapping_annotations: yes
+keep_gff3_files_without_annotations: no
+gff3_merge_redundant_features: yes
+gff3_compulsory_match_part: no
+gff3_with_genomic_sequence: no
+gff3_with_TE_length: yes
+gff3_with_classif_info: yes
+classif_table_name: 
+gff3_chado: no
+drop_tables: no

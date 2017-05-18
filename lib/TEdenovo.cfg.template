@@ -1,0 +1,143 @@
+[repet_env]
+repet_version: 2.5
+repet_host: bioclusterdb
+repet_user: $USER$
+repet_pw: $PASSWORD$
+repet_db: $MYSQLDB$
+repet_port: 3306
+repet_job_manager: slurm
+
+[project]
+project_name: $PROJECT_NAME$
+project_dir: $PROJECT_DIRECTORY$
+
+[prepare_batches]
+resources: 
+tmpDir: /scratch
+chunk_length: 2000000
+chunk_overlap: 10000
+min_nb_seq_per_batch: 4
+clean: yes
+
+[self_align]
+resources: --mem=4G
+tmpDir: /scratch
+copy: no
+blast: blastplus
+Evalue: 1e-300
+length: 100
+identity: 90
+filter_HSP: yes
+min_Evalue: 1e-300
+min_identity: 90
+min_length: 100
+max_length: 20000
+clean: yes
+
+[cluster_HSPs]
+resources: --mem=12G
+tmpDir: /scratch
+Grouper_nbGroup: 1
+Grouper_coverage: 0.95
+Grouper_include: 2
+Grouper_maxJoinLength: 30000
+minNbSeqPerGroup: 3
+nbLongestSeqPerGroup: 20
+maxSeqLength: 20000
+clean: yes
+
+[structural_search]
+resources: 
+tmpDir: /scratch
+minLTRSize: 100
+maxLTRSize: 1000
+minElementSize: 1100
+maxElementSize: 16000
+LTR_similarity: 90
+overlaps_handling: best
+clean: yes
+
+[structural_search_clustering]
+resources: 
+tmpDir: /scratch
+type: blastclust
+MCL_inflation: 1.5
+MCL_coverage: 0
+clean: yes
+
+[build_consensus]
+resources: --mem=12G 
+tmpDir: /scratch
+minBasesPerSite: 2
+clean: yes
+
+[detect_features]
+resources: --mem=4G
+tmpDir: /scratch
+term_rep: yes
+polyA: yes
+tand_rep: yes
+orf: yes
+blast: blastplus
+TE_BLRn: no
+TE_BLRtx: yes
+TE_nucl_bank: RepBase_REPET_nt.fa
+TE_BLRx: yes
+TE_prot_bank: RepBase_REPET_aa.faa
+TE_HMMER: yes
+TE_HMM_profiles: REPET_Pfam.hmm
+TE_HMMER_evalue: 10
+HG_BLRn: yes
+HG_nucl_bank: cDNA.fa
+rDNA_BLRn: yes
+rDNA_bank: rDNA.fsa
+tRNA_scan: no
+TRFmaxPeriod: 15
+RepScout: no
+RepScout_bank: none 
+clean: yes
+
+[classif_consensus]
+resources: 
+tmpDir: /scratch
+limit_job_nb: 20
+max_profiles_evalue: 1e-3
+min_TE_profiles_coverage: 20
+min_HG_profiles_coverage: 75
+max_helitron_extremities_evalue: 1e-3
+min_TE_bank_coverage: 5
+min_HG_bank_coverage: 95
+min_HG_bank_identity: 90
+min_rDNA_bank_coverage: 95
+min_rDNA_bank_identity: 90
+min_SSR_coverage: 0.75
+max_SSR_size: 100
+remove_redundancy: yes
+min_redundancy_identity: 95
+min_redundancy_coverage: 98
+rev_complement: yes 
+add_wicker_code: yes
+add_noCat_bestHitClassif: no
+clean: yes
+
+[filter_consensus]
+resources: 
+tmpDir: /scratch
+filter_SSR: yes
+length_SSR: 0
+filter_noCat: yes
+filter_noCat_max_fragments: 10
+filter_host_gene: no
+filter_potential_chimeric: no
+filter_incomplete: no
+filter_rDNA: yes
+clean: yes
+
+[cluster_consensus]
+resources: 
+tmpDir: /scratch
+Blastclust_identity: 0
+Blastclust_coverage: 80
+MCL_inflation: 4.0
+MCL_coverage: 0.0
+clean: yes
