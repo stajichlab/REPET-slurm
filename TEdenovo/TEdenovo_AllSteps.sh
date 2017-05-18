@@ -3,9 +3,9 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem-per-cpu=1G
-#SBATCH --time=01:00:00
+#SBATCH --time=0:10:00
 #SBATCH --output=scheduler.stdout
-#SBATCH --job-name="TEdenovo_Scheduler"
+#SBATCH --job-name="Sched_TEdenovo"
 #SBATCH -p intel
 
 # REPET - Whole Pipeline Scheduler
@@ -35,7 +35,7 @@ source config.txt
 # NOTE: Don't worry if this gives an error saying the "jobs" table
 #       doesn't exist because TRUNCATE doesn't support checking
 #       whether a table exists first
-echo "TRUNCATE TABLE jobs;" | mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS $MYSQL_DB
+#echo "TRUNCATE TABLE jobs;" | mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS $MYSQL_DB
 
 # Drop all tables in the MySQL database associated with the same project name
 echo "SHOW TABLES" | mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS $MYSQL_DB | \
