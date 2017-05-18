@@ -9,8 +9,11 @@
 #SBATCH -p intel
 
 # REPET - Whole Pipeline Scheduler
-
-export ProjectName="Cpos_C735"
+if [ ! -f config.txt ]; then
+ echo "Need a config.txt which defines ProjectName"
+ exit
+fi
+source config.txt
 
 #jid_step1=$(sbatch --export=ProjectName --kill-on-invalid-dep=yes REPET_Step1.sh | cut -d" " -f4)
 
