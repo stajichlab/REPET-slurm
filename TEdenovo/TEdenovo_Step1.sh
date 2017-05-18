@@ -5,11 +5,13 @@
 #SBATCH --mem-per-cpu=2G
 #SBATCH --time=1-00:00:00
 #SBATCH --output=step1.stdout
-#SBATCH --job-name="REPET_Step1"
+#SBATCH --job-name="TEdenovo_Step1"
 #SBATCH -p intel
 
 module load repet/2.5
 
 # REPET - Step 1
 
-TEannot.py -P $ProjectName -C TEannot.cfg -S 1
+if [ ! -d "${ProjectName}_db" ]; then
+    TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 1
+fi

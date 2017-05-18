@@ -5,7 +5,7 @@
 #SBATCH --mem-per-cpu=2G
 #SBATCH --time=1-00:00:00
 #SBATCH --output=step3.stdout
-#SBATCH --job-name="REPET_Step3"
+#SBATCH --job-name="TEannot_Step3"
 #SBATCH -p intel
 
 module load repet/2.5

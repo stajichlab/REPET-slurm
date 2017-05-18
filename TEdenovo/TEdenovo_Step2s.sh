@@ -5,7 +5,7 @@
 #SBATCH --mem-per-cpu=2G
 #SBATCH --time=1-00:00:00
 #SBATCH --output=step2s.stdout
-#SBATCH --job-name="REPET_Step2s"
+#SBATCH --job-name="TEdenovo_Step2s"
 #SBATCH -p intel
 
 module load repet/2.5
