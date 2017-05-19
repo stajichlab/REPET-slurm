@@ -10,7 +10,8 @@
 
 module load repet/2.5
 
-# REPET - Step 2
+# REPET TEdenovo - Step 2
+# Genome self-alignment
 
 if [ ! -d "${ProjectName}_${SMPL_ALIGNER}" ]; then
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 2 -s $SMPL_ALIGNER

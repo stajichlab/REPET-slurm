@@ -11,7 +11,9 @@
 module load repet/2.5
 module load ncbi-blast/2.2.26
 
-# REPET - Step 8 - Combined Standard and Structural
+# REPET TEdenovo - Step 8 - Combined Standard and Structural
+# Consensus sequences clustered into families
+
 source config.txt
 
 if [ ! -d "${ProjectName}_*_${MLT_ALIGNER}_TEclassif_Filtered_${FINAL_CLUSTERER}" ]; then

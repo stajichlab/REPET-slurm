@@ -10,7 +10,8 @@
 
 module load repet/2.5
 
-# REPET - Step 5 - Combined Standard and Structural
+# REPET TEdenovo - Step 5 - Combined Standard and Structural
+# Features detected on each consensus (structural or homology-based)
 
 if [ ! -d "${ProjectName}_"*"_${MLT_ALIGNER}_TEclassif" ]; then
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 5 -s $SMPL_ALIGNER -c $CLUSTERERS -m $MLT_ALIGNER --struct

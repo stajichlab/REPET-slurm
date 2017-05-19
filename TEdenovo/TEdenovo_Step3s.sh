@@ -11,7 +11,8 @@
 module load repet/2.5
 module load ncbi-blast/2.2.26
 
-# REPET - Step 3 - Structural
+# REPET TEdenovo - Step 3 - Structural
+# LTRharvest prediction clustering
 
 if [ ! -d "${ProjectName}_LTRharvest_Blastclust" ]; then
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 3 --struct

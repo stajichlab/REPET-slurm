@@ -10,7 +10,8 @@
 
 module load repet/2.5
 
-# REPET - Step 2 - Structural
+# REPET TEdenovo - Step 2 - Structural
+# LTRharvest ran on each batch to find LTR retrotransposons
 
 if [ ! -d "${ProjectName}_LTRharvest" ]; then
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 2 --struct

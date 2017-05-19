@@ -11,7 +11,8 @@
 
 module load repet/2.5
 
-# REPET - Step 3
+# REPET TEdenovo - Step 3
+# HSP clustering by Recon, Grouper, and/or Piler
 
 IFS=',' read -ra CLUSTERERS_AVAIL_ARRAY <<< "$CLUSTERERS_AVAIL"
 CLUSTERER=${CLUSTERERS_AVAIL_ARRAY[$SLURM_ARRAY_TASK_ID]}

@@ -8,7 +8,7 @@
 #SBATCH --job-name="Sched_TEdenovo"
 #SBATCH -p intel
 
-# REPET - Whole Pipeline Scheduler
+# REPET TEdenovo Pipeline Scheduler
 
 # Setup/reset MySQL database for new run
 # WARNING: Do NOT drop the "jobs" table if multiple instances of REPET

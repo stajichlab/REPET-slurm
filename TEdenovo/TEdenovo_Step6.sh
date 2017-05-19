@@ -10,7 +10,8 @@
 
 module load repet/2.5
 source config.txt
-# REPET - Step 6 - Combined Standard and Structural
+# REPET TEdenovo - Step 6 - Combined Standard and Structural
+# Wicker classification of each consensus sequence
 
 if [ ! -d "${ProjectName}_*_${MLT_ALIGNER}_TEclassif" ]; then
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 6 -s $SMPL_ALIGNER -c $CLUSTERERS -m $MLT_ALIGNER --struct

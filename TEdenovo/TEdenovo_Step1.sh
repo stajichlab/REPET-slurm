@@ -10,7 +10,8 @@
 
 module load repet/2.5
 
-# REPET - Step 1
+# REPET TEdenovo - Step 1
+# Genomic sequence split into batches
 
 if [ ! -d "${ProjectName}_db" ]; then
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 1
