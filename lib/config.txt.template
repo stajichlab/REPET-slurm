@@ -1,0 +1,6 @@
+ProjectName=$PROJECTNAME$
+SMPL_ALIGNER="Blaster"
+CLUSTERERS_AVAIL="Grouper,Recon"
+CLUSTERERS="GrpRec"
+MLT_ALIGNER="Map"
+FINAL_CLUSTERER="Blastclust"
