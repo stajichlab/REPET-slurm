@@ -3,7 +3,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=4
 #SBATCH --mem-per-cpu=2G
-#SBATCH --time=1-00:00:00
+#SBATCH --time=7-00:00:00
 #SBATCH --output=step6.stdout
 #SBATCH --job-name="S6_TEdenovo"
 #SBATCH -p intel
