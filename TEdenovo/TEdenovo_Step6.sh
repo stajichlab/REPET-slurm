@@ -9,7 +9,7 @@
 #SBATCH -p intel
 
 module load repet/2.5
-
+source config.txt
 # REPET - Step 6 - Combined Standard and Structural
 
 if [ ! -d "${ProjectName}_*_${MLT_ALIGNER}_TEclassif" ]; then
