@@ -9,10 +9,10 @@
 #SBATCH -p intel
 
 module load repet/2.5
-source config.txt
 # REPET TEdenovo - Step 7 - Combined Standard and Structural
 # Filter consensus sequences
 
+CLUSTERERS=$( echo $CLUSTERERS_AVAIL | tr -d ',' )
 if [ ! -d "${ProjectName}_*_${MLT_ALIGNER}_TEclassif_Filtered" ]; then
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 7 -s $SMPL_ALIGNER -c $CLUSTERERS -m $MLT_ALIGNER --struct
 fi

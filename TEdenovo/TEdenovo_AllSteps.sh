@@ -22,7 +22,6 @@ MYSQL_DB=$(grep "repet_db" TEdenovo.cfg | cut -d" " -f2)
 export ProjectName=$(grep "project_name" TEdenovo.cfg | cut -d" " -f2)
 export SMPL_ALIGNER="Blaster"
 export CLUSTERERS_AVAIL="Grouper,Recon"
-export CLUSTERERS="GrpRec"
 export MLT_ALIGNER="Map"
 export FINAL_CLUSTERER="Blastclust"
 
@@ -48,12 +47,12 @@ jid_step3s=$(sbatch --export=ProjectName --kill-on-invalid-dep=yes --dependency=
 jid_step4=$(sbatch --export=ProjectName,SMPL_ALIGNER,CLUSTERERS_AVAIL,MLT_ALIGNER --kill-on-invalid-dep=yes --dependency=afterok:$jid_step3 TEdenovo_Step4.sh | cut -d" " -f4)
 jid_step4s=$(sbatch --export=ProjectName,MLT_ALIGNER --kill-on-invalid-dep=yes --dependency=afterok:$jid_step3s TEdenovo_Step4s.sh | cut -d" " -f4)
 
-jid_step5=$(sbatch --export=ProjectName,SMPL_ALIGNER,CLUSTERERS,MLT_ALIGNER --kill-on-invalid-dep=yes --dependency=afterok:$jid_step4:$jid_step4s TEdenovo_Step5.sh | cut -d" " -f4)
+jid_step5=$(sbatch --export=ProjectName,SMPL_ALIGNER,CLUSTERERS_AVAIL,MLT_ALIGNER --kill-on-invalid-dep=yes --dependency=afterok:$jid_step4:$jid_step4s TEdenovo_Step5.sh | cut -d" " -f4)
 
-jid_step6=$(sbatch --export=ProjectName,SMPL_ALIGNER,CLUSTERERS,MLT_ALIGNER --kill-on-invalid-dep=yes --dependency=afterok:$jid_step5 TEdenovo_Step6.sh | cut -d" " -f4)
+jid_step6=$(sbatch --export=ProjectName,SMPL_ALIGNER,CLUSTERERS_AVAIL,MLT_ALIGNER --kill-on-invalid-dep=yes --dependency=afterok:$jid_step5 TEdenovo_Step6.sh | cut -d" " -f4)
 
-jid_step7=$(sbatch --export=ProjectName,SMPL_ALIGNER,CLUSTERERS,MLT_ALIGNER --kill-on-invalid-dep=yes --dependency=afterok:$jid_step6 TEdenovo_Step7.sh | cut -d" " -f4)
+jid_step7=$(sbatch --export=ProjectName,SMPL_ALIGNER,CLUSTERERS_AVAIL,MLT_ALIGNER --kill-on-invalid-dep=yes --dependency=afterok:$jid_step6 TEdenovo_Step7.sh | cut -d" " -f4)
 
-jid_step8=$(sbatch --export=ProjectName,SMPL_ALIGNER,CLUSTERERS,MLT_ALIGNER,FINAL_CLUSTERER --kill-on-invalid-dep=yes --dependency=afterok:$jid_step7 TEdenovo_Step8.sh | cut -d" " -f4)
+jid_step8=$(sbatch --export=ProjectName,SMPL_ALIGNER,CLUSTERERS_AVAIL,MLT_ALIGNER,FINAL_CLUSTERER --kill-on-invalid-dep=yes --dependency=afterok:$jid_step7 TEdenovo_Step8.sh | cut -d" " -f4)
 
 echo "Finished submitting all jobs at $(date)"
