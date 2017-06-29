@@ -13,6 +13,14 @@ module load repet/2.5
 # REPET TEdenovo - Step 2 - Structural
 # LTRharvest ran on each batch to find LTR retrotransposons
 
+if  [ ! -n "$ProjectName" ]; then
+    echo 'One or more environment variables required by this script' \
+    'are unset. Either run this script through the scheduler script or' \
+    'set the variable(s) and use the --export option of sbatch before' \
+    'restarting.'
+    exit 1
+fi
+
 if [ ! -d "${ProjectName}_LTRharvest" ]; then
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 2 --struct
 fi
