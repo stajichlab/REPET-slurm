@@ -25,15 +25,16 @@ export CLUSTERERS_AVAIL="Grouper,Recon"
 export MLT_ALIGNER="Map"
 export FINAL_CLUSTERER="Blastclust"
 
-# Clear the jobs table, in case last run failed while sub-jobs were running
-# NOTE: Don't worry if this gives an error saying the "jobs" table
-#       doesn't exist because TRUNCATE doesn't support checking
-#       whether a table exists first
-#echo "TRUNCATE TABLE jobs;" | mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS $MYSQL_DB
+# Clear the jobs table for the current project
+## in case last run failed for some reason while sub-jobs were running
+echo "DELETE FROM jobs WHERE groupid LIKE '${ProjectName}_%';" | \
+mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS $MYSQL_DB
 
 # Drop all tables in the MySQL database associated with the same project name
-echo "SHOW TABLES" | mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS $MYSQL_DB | \
-egrep "^${ProjectName}_" | xargs -I "@@" mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS -D$MYSQL_DB -e "DROP TABLE \`@@\`"
+echo "SHOW TABLES" | \
+mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS $MYSQL_DB | \
+egrep "^${ProjectName}_" | \
+xargs -I "@@" mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS -D$MYSQL_DB -e "DROP TABLE \`@@\`"
 
 # Submit jobs to SLURM
 jid_step1=$(sbatch --export=ProjectName --kill-on-invalid-dep=yes TEdenovo_Step1.sh | cut -d" " -f4)
