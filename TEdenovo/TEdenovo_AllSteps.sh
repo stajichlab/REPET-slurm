@@ -19,17 +19,12 @@ MYSQL_PASS=$(grep "repet_pw" TEdenovo.cfg | cut -d" " -f2)
 MYSQL_DB=$(grep "repet_db" TEdenovo.cfg | cut -d" " -f2)
 
 # Set project-specific variables
+export ProjectName=$(grep "project_name" TEdenovo.cfg | cut -d" " -f2)
 export SMPL_ALIGNER="Blaster"
 export CLUSTERERS_AVAIL="Grouper,Recon"
 export CLUSTERERS="GrpRec"
 export MLT_ALIGNER="Map"
 export FINAL_CLUSTERER="Blastclust"
-
-if [ ! -f config.txt ]; then
- echo "Need a config.txt which defines ProjectName"
- exit
-fi
-source config.txt
 
 # Clear the jobs table, in case last run failed while sub-jobs were running
 # NOTE: Don't worry if this gives an error saying the "jobs" table
