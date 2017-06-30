@@ -13,7 +13,7 @@ module load repet/2.5
 # REPET TEdenovo - Step 4 - Structural
 # Multiple alignment computed for each LTRharvest cluster and consensus sequence produced
 
-if  [ ! -n "$ProjectName" ] || [ ! -n "$MLT_ALIGNER"]; then
+if  [ ! -n "$ProjectName" ] || [ ! -n "$MLT_ALIGNER" ]; then
     echo 'One or more environment variables required by this script' \
     'are unset. Either run this script through the scheduler script or' \
     'set the variable(s) and use the --export option of sbatch before' \
