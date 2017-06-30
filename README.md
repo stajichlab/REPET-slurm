@@ -1,12 +1,34 @@
-REPET-Slurm
-===========
+# REPET-Slurm
 
-Slurm running of REPET - expects a slurm and module system for installation of tools
+A collection of scripts to get started with running the
+[REPET](https://urgi.versailles.inra.fr/Tools/REPET/) pipeline on a cluster
+with the [SLURM](https://slurm.schedmd.com/) resource manager and a
+[module system](http://modules.sourceforge.net/) installed.
 
-Expected configuration of databases :
-* REPET_Pfam.hmm - ProfilesBankForREPET_Pfam27.0_GypsyDB.hmm - https://urgi.versailles.inra.fr/download/repet/ProfilesBankForREPET_Pfam27.0_GypsyDB.hmm
-* rDNA.fsa - from rnammer http://www.cbs.dtu.dk/services/RNAmmer/
-From RepBase - http://www.girinst.org/repbase/
-* RepBase_REPET_aa.faa
-* RepBase_REPET_nt.fa
+## Prerequisite Files
+
+1. Host genome (FASTA format)
+2. [REPET-specific Pfam HMM File](https://urgi.versailles.inra.fr/download/repet/ProfilesBankForREPET_Pfam27.0_GypsyDB.hmm)
+3. rDNA (FASTA format) of host genome
+    - [RNAmmer](http://www.cbs.dtu.dk/services/RNAmmer/)
+4. [RepBase](http://www.girinst.org/repbase/) Protein Database
+5. RepBase Nucleotide Database
+6. cDNA of host genome (FASTA format)
+
+## Getting Started
+
+### TEdenovo
+
+```
+$ git clone https://github.com/stajichlab/REPET-slurm
+$ cd REPET-slurm/TEdenovo
+$ cp /path/to/REPET/config/TEdenovo.cfg .
+```
+
+Change the settings in `TEdenovo.cfg` and `TEdenovo_AllSteps.sh` to match your
+environment/project.
+
+```
+$ sh TEdenovo_AllSteps.sh
+```
 
