@@ -4,7 +4,7 @@
 #SBATCH --ntasks=1
 #SBATCH --mem-per-cpu=2G
 #SBATCH --time=1-00:00:00
-#SBATCH --output=step3.stdout
+#SBATCH --output=step3-%a.stdout
 #SBATCH --job-name="S3_TEdenovo"
 #SBATCH --array=0-1
 #SBATCH -p intel
