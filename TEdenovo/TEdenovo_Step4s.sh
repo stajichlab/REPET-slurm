@@ -4,7 +4,7 @@
 #SBATCH --ntasks=1
 #SBATCH --mem-per-cpu=2G
 #SBATCH --time=1-00:00:00
-#SBATCH --output=step4s.stdout
+#SBATCH --output=step4s-%a.stdout
 #SBATCH --job-name="S4s_TEdenovo"
 #SBATCH -p intel
 
@@ -23,4 +23,6 @@ fi
 
 if [ ! -d "${ProjectName}_"*"_${MLT_ALIGNER}" ]; then
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 4 --struct -m $MLT_ALIGNER
+else
+    echo "Step 4s output folder detected, skipping..."
 fi

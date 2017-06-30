@@ -27,4 +27,6 @@ CLUSTERER=${CLUSTERERS_AVAIL_ARRAY[$SLURM_ARRAY_TASK_ID]}
 
 if [ ! -d "${ProjectName}_${SMPL_ALIGNER}_${CLUSTERER}" ]; then
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 3 -s $SMPL_ALIGNER -c $CLUSTERER
+else
+    echo "echo "Step 3 output folder detected, skipping..."
 fi

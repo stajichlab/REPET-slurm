@@ -23,4 +23,6 @@ fi
 
 if [ ! -d "${ProjectName}_db" ]; then
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 1
+else
+    echo "Step 1 output folder detected, skipping..."
 fi

@@ -23,4 +23,6 @@ fi
 
 if [ ! -d "${ProjectName}_${SMPL_ALIGNER}" ]; then
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 2 -s $SMPL_ALIGNER
+else
+    echo "Step 2 output folder detected, skipping..."
 fi

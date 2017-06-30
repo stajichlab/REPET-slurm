@@ -23,4 +23,6 @@ fi
 
 if [ ! -d "${ProjectName}_LTRharvest" ]; then
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 2 --struct
+else
+    echo "Step 2s output folder detected, skipping..."
 fi

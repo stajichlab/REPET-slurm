@@ -24,4 +24,6 @@ fi
 
 if [ ! -d "${ProjectName}_LTRharvest_Blastclust" ]; then
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 3 --struct
+else
+    echo "Step 3s output folder detected, skipping..."
 fi
