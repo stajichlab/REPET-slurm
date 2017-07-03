@@ -2,4 +2,8 @@
 .*.swp
 .#*
 #*
-config.txt
+*.stdout
+*.fa
+*.faa
+*.cfg
+*.hmm

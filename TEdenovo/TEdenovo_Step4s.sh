@@ -21,7 +21,7 @@ if  [ ! -n "$ProjectName" ] || [ ! -n "$MLT_ALIGNER" ]; then
     exit 1
 fi
 
-if [ ! -d "${ProjectName}_"*"_${MLT_ALIGNER}" ]; then
+if [ ! -d "${ProjectName}_LTRharvest_Blastclust_${MLT_ALIGNER}" ]; then
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 4 --struct -m $MLT_ALIGNER
 else
     echo "Step 4s output folder detected, skipping..."

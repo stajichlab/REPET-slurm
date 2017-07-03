@@ -5,6 +5,14 @@ A collection of scripts to get started with running the
 with the [SLURM](https://slurm.schedmd.com/) resource manager and a
 [module system](http://modules.sourceforge.net/) installed.
 
+## Caveats/Warnings
+
+1. FASTA Format
+    - Header
+        - Recommended format: ">XX_i" (XX = letters, i = numbers)
+        - **avoid spaces** and symbols like "=;:|"
+    - 60 bps (or less) per line for sequences
+
 ## Prerequisite Files
 
 1. Host genome (FASTA format)
