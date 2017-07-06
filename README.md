@@ -23,9 +23,16 @@ with the [SLURM](https://slurm.schedmd.com/) resource manager and a
 5. RepBase Nucleotide Database
 6. cDNA of host genome (FASTA format)
 
+A [RepeatScout](https://bix.ucsd.edu/repeatscout/) bank can also be provided
+but there are additional pre-processing steps before it can be used in the
+pipeline. See the [TEdenovo tuto](https://urgi.versailles.inra.fr/Tools/REPET/TEdenovo-tuto)
+webpage or text file included with REPET. 
+
 ## Getting Started
 
 ### TEdenovo
+
+1. Clone the repository and copy the default configuration.
 
 ```
 $ git clone https://github.com/stajichlab/REPET-slurm
@@ -33,10 +40,8 @@ $ cd REPET-slurm/TEdenovo
 $ cp /path/to/REPET/config/TEdenovo.cfg .
 ```
 
-Change the settings in `TEdenovo.cfg` and `TEdenovo_AllSteps.sh` to match your
+2. Change the settings in `TEdenovo.cfg` and `TEdenovo_AllSteps.sh` to match your
 environment/project.
-
-```
-$ sh TEdenovo_AllSteps.sh
-```
+3. Copy the prerequisite files into the TEdenovo folder.
+4. `sh TEdenovo_AllSteps.sh` or `sbatch TEdenovo_AllSteps.sh`.
 

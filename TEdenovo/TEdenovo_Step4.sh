@@ -4,7 +4,7 @@
 #SBATCH --ntasks=1
 #SBATCH --mem-per-cpu=2G
 #SBATCH --time=1-00:00:00
-#SBATCH --output=step4-%a.stdout
+#SBATCH --output=TEdenovo-step4-%a.stdout
 #SBATCH --job-name="S4_TEdenovo"
 #SBATCH --array=0-1
 #SBATCH -p intel

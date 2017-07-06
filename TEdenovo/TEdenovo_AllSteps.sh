@@ -4,7 +4,7 @@
 #SBATCH --ntasks=1
 #SBATCH --mem-per-cpu=1G
 #SBATCH --time=0:10:00
-#SBATCH --output=scheduler.stdout
+#SBATCH --output=TEdenovo-scheduler.stdout
 #SBATCH --job-name="Sched_TEdenovo"
 #SBATCH -p intel
 
@@ -20,10 +20,19 @@ MYSQL_DB=$(grep "repet_db" TEdenovo.cfg | cut -d" " -f2)
 
 # Set project-specific variables
 export ProjectName=$(grep "project_name" TEdenovo.cfg | cut -d" " -f2)
+# (!) modify these to your project/environment
+## (only choose what REPET supports)
 export SMPL_ALIGNER="Blaster"
 export CLUSTERERS_AVAIL="Grouper,Recon"
 export MLT_ALIGNER="Map"
 export FINAL_CLUSTERER="Blastclust"
+
+# CLUSTERERS_AVAIL has to be a string because bash arrays cannot be passed
+# directly to SLURM jobs; so the string is split into an array here and
+# also in step scripts that need it
+IFS=',' read -ra CLUSTERERS_AVAIL_ARRAY <<< "$CLUSTERERS_AVAIL"
+# ${#CLUSTERERS_AVAIL_ARRAY[@]} gives length of CLUSTERERS_AVAIL_ARRAY array
+NUM_CLUSTERERS=${#CLUSTERERS_AVAIL_ARRAY[@]}
 
 # Clear the jobs table for the current project
 ## in case last run failed for some reason while sub-jobs were running
@@ -54,6 +63,7 @@ jid_step3=$(sbatch \
     --export=ProjectName,SMPL_ALIGNER,CLUSTERERS_AVAIL \
     --kill-on-invalid-dep=yes \
     --dependency=afterok:$jid_step2 \
+    --array=1-${NUM_CLUSTERERS} \
     TEdenovo_Step3.sh | \
     cut -d" " -f4)
 jid_step3s=$(sbatch \
@@ -67,6 +77,7 @@ jid_step4=$(sbatch \
     --export=ProjectName,SMPL_ALIGNER,CLUSTERERS_AVAIL,MLT_ALIGNER \
     --kill-on-invalid-dep=yes \
     --dependency=afterok:$jid_step3 \
+    --array=1-${NUM_CLUSTERERS} \
     TEdenovo_Step4.sh | \
     cut -d" " -f4)
 jid_step4s=$(sbatch \
