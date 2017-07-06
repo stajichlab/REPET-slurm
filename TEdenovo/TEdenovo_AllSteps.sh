@@ -10,14 +10,6 @@
 
 # REPET TEdenovo Pipeline Scheduler
 
-# Setup/reset MySQL database for new run
-# WARNING: Do NOT drop the "jobs" table if multiple instances of REPET
-#          are concurrently using the same database
-MYSQL_HOST=$(grep "repet_host" TEdenovo.cfg | cut -d" " -f2)
-MYSQL_USER=$(grep "repet_user" TEdenovo.cfg | cut -d" " -f2)
-MYSQL_PASS=$(grep "repet_pw" TEdenovo.cfg | cut -d" " -f2)
-MYSQL_DB=$(grep "repet_db" TEdenovo.cfg | cut -d" " -f2)
-
 # Set project-specific variables
 export ProjectName=$(grep "project_name" TEdenovo.cfg | cut -d" " -f2)
 # (!) modify these to your project/environment
@@ -36,6 +28,11 @@ NUM_CLUSTERERS=${#CLUSTERERS_AVAIL_ARRAY[@]}
 
 # Clear the jobs table for the current project
 ## in case last run failed for some reason while sub-jobs were running
+MYSQL_HOST=$(grep "repet_host" TEdenovo.cfg | cut -d" " -f2)
+MYSQL_USER=$(grep "repet_user" TEdenovo.cfg | cut -d" " -f2)
+MYSQL_PASS=$(grep "repet_pw" TEdenovo.cfg | cut -d" " -f2)
+MYSQL_DB=$(grep "repet_db" TEdenovo.cfg | cut -d" " -f2)
+
 echo "DELETE FROM jobs WHERE groupid LIKE '${ProjectName}_%';" | \
 mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS $MYSQL_DB
 

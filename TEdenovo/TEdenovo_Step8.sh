@@ -22,8 +22,9 @@ if  [ ! -n "$ProjectName" ] || [ ! -n "$CLUSTERERS_AVAIL" ] || [ ! -n "$SMPL_ALI
     exit 1
 fi
 
-CLUSTERERS=$( echo $CLUSTERERS_AVAIL | tr -d ',' )
 if [ ! -d "${ProjectName}_${SMPL_ALIGNER}_${CLUSTERERS}_Struct_${MLT_ALIGNER}_TEclassif_Filtered_${FINAL_CLUSTERER}" ]; then
+    CLUSTERERS=$( echo $CLUSTERERS_AVAIL | tr -d ',' )
+
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 8 -s $SMPL_ALIGNER -c $CLUSTERERS -m $MLT_ALIGNER -f $FINAL_CLUSTERER --struct
 else
     echo "Step 8 output folder detected, skipping..."
