@@ -12,6 +12,11 @@ module load repet/2.5
 # REPET TEdenovo - Step 6 - Combined Standard and Structural
 # Wicker classification of each consensus sequence
 
+MYSQL_HOST=$(grep "repet_host" TEdenovo.cfg | cut -d" " -f2)
+MYSQL_USER=$(grep "repet_user" TEdenovo.cfg | cut -d" " -f2)
+MYSQL_PASS=$(grep "repet_pw" TEdenovo.cfg | cut -d" " -f2)
+MYSQL_DB=$(grep "repet_db" TEdenovo.cfg | cut -d" " -f2)
+
 if  [ ! -n "$ProjectName" ] || [ ! -n "$CLUSTERERS_AVAIL" ] || [ ! -n "$SMPL_ALIGNER" ] || [ ! -n "$MLT_ALIGNER" ]; then
     echo 'One or more environment variables required by this script' \
     'are unset. Either run this script through the scheduler script or' \
@@ -21,7 +26,11 @@ if  [ ! -n "$ProjectName" ] || [ ! -n "$CLUSTERERS_AVAIL" ] || [ ! -n "$SMPL_ALI
 fi
 
 CLUSTERERS=$( echo $CLUSTERERS_AVAIL | tr -d ',' )
-if [ ! -d "${ProjectName}_${SMPL_ALIGNER}_${CLUSTERERS}_Struct_${MLT_ALIGNER}_TEclassif" ]; then
+if [ ! -d "${ProjectName}_${SMPL_ALIGNER}_${CLUSTERERS}_Struct_${MLT_ALIGNER}_TEclassif/classifConsensus" ]; then
+    # if re-running step, drop MySQL tables
+    echo "DROP TABLE IF EXISTS ${ProjectName}_consensus_classif;" \
+    mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS $MYSQL_DB
+
     TEdenovo.py -P $ProjectName -C TEdenovo.cfg -S 6 -s $SMPL_ALIGNER -c $CLUSTERERS -m $MLT_ALIGNER --struct
 else
     echo "Step 6 output folder detected, skipping..."
