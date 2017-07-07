@@ -15,6 +15,7 @@ export ProjectName=$(grep "project_name" TEannot.cfg | cut -d" " -f2)
 # (!) modify these to your project/environment
 ## (only choose what REPET supports)
 export ALIGNERS_AVAIL="BLR+RM+CEN"
+export SSR_DETECTORS_AVAIL="TRF+RMSSR"
 
 # ALIGNERS_AVAIL has to be a string because bash arrays cannot be passed
 # directly to SLURM jobs; so the string is split into an array here and
@@ -22,6 +23,9 @@ export ALIGNERS_AVAIL="BLR+RM+CEN"
 IFS='+' read -ra ALIGNERS_AVAIL_ARRAY <<< "$ALIGNERS_AVAIL"
 # ${#ALIGNERS_AVAIL_ARRAY[@]} gives length of ALIGNERS_AVAIL_ARRAY array
 NUM_ALIGNERS=${#ALIGNERS_AVAIL_ARRAY[@]}
+
+IFS='+' read -ra SSR_DETECTORS_AVAIL_ARRAY <<< "$SSR_DETECTORS_AVAIL"
+NUM_SSR_DETECTORS=${#SSR_DETECTORS_AVAIL_ARRAY[@]}
 
 # Clear the jobs table for the current project
 ## in case last run failed for some reason while sub-jobs were running
@@ -48,17 +52,20 @@ jid_step2=$(sbatch \
     TEannot_Step2.sh | \
     cut -d" " -f4)
 
-#jid_step3=$(sbatch \
-#    --kill-on-invalid-dep=yes \
-#    --dependency=afterok:$jid_step2 \
-#    TEannot_Step3.sh | \
-#    cut -d" " -f4)
+jid_step3=$(sbatch \
+    --export=ProjectName,ALIGNERS_AVAIL \
+    --kill-on-invalid-dep=yes \
+    --dependency=afterok:$jid_step2 \
+    TEannot_Step3.sh | \
+    cut -d" " -f4)
 
-#jid_step4=$(sbatch \
-#    --kill-on-invalid-dep=yes \
-#    --dependency=afterok:$jid_step1 \
-#    TEannot_Step4.sh | \
-#    cut -d" " -f4)
+jid_step4=$(sbatch \
+    --export=ProjectName,SSR_DETECTORS_AVAIL \
+    --kill-on-invalid-dep=yes \
+    --dependency=afterok:$jid_step1 \
+    --array=0-$(( $NUM_SSR_DETECTORS - 1 )) \
+    TEannot_Step4.sh | \
+    cut -d" " -f4)
 
 #jid_step5=$(sbatch \
 #    --kill-on-invalid-dep=yes \

@@ -38,4 +38,6 @@ ALIGNER=${ALIGNERS_AVAIL_ARRAY[$(( $SLURM_ARRAY_TASK_ID % $NUM_ALIGNERS ))]}
 
 if [ ! -d "${OUT_DIR}/${ALIGNER}" ]; then
     TEannot.py -P $ProjectName -C TEannot.cfg -S 2 -a $ALIGNER $CMD_SUFFIX
+else
+    echo "Step 2 output folder detected, skipping..."
 fi
