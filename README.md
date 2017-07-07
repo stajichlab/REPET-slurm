@@ -28,7 +28,8 @@ with the [SLURM](https://slurm.schedmd.com/) resource manager and a
 A [RepeatScout](https://bix.ucsd.edu/repeatscout/) bank can also be provided
 but there are additional pre-processing steps before it can be used in the
 pipeline. See the [TEdenovo tuto](https://urgi.versailles.inra.fr/Tools/REPET/TEdenovo-tuto)
-webpage or text file included with REPET. 
+webpage or text file included with REPET. These scripts currently do NOT
+perform this pre-processing steps.
 
 ### TEannot
 
@@ -52,12 +53,12 @@ $ cp /path/to/REPET/config/TEdenovo.cfg .
 
 2. Change the settings in `TEdenovo.cfg` and `TEdenovo_AllSteps.sh` to match your
 environment/project.
-3. Copy the prerequisite files into the TEdenovo folder.
+3. Copy/link the prerequisite files into the TEdenovo folder.
 4. `sh TEdenovo_AllSteps.sh` or `sbatch TEdenovo_AllSteps.sh`.
 
 ### TEannot
 
-If you already ran TEdenovo, skip step 1.
+If you already ran TEdenovo, then skip step 1.
 
 1. Clone the repository and copy the default configuration.
 
