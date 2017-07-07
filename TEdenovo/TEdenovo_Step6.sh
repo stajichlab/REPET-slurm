@@ -27,7 +27,7 @@ if [ ! -d "${ProjectName}_${SMPL_ALIGNER}_${CLUSTERERS}_Struct_${MLT_ALIGNER}_TE
     MYSQL_PASS=$(grep "repet_pw" TEdenovo.cfg | cut -d" " -f2)
     MYSQL_DB=$(grep "repet_db" TEdenovo.cfg | cut -d" " -f2)
 
-    echo "DROP TABLE IF EXISTS ${ProjectName}_consensus_classif;" \
+    echo "DROP TABLE IF EXISTS ${ProjectName}_consensus_classif;" | \
     mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS $MYSQL_DB
 
     CLUSTERERS=$( echo $CLUSTERERS_AVAIL | tr -d ',' )
