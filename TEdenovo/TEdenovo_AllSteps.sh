@@ -60,7 +60,7 @@ jid_step3=$(sbatch \
     --export=ProjectName,SMPL_ALIGNER,CLUSTERERS_AVAIL \
     --kill-on-invalid-dep=yes \
     --dependency=afterok:$jid_step2 \
-    --array=1-${NUM_CLUSTERERS} \
+    --array=0-$(( $NUM_CLUSTERERS - 1 )) \
     TEdenovo_Step3.sh | \
     cut -d" " -f4)
 jid_step3s=$(sbatch \
@@ -74,7 +74,7 @@ jid_step4=$(sbatch \
     --export=ProjectName,SMPL_ALIGNER,CLUSTERERS_AVAIL,MLT_ALIGNER \
     --kill-on-invalid-dep=yes \
     --dependency=afterok:$jid_step3 \
-    --array=1-${NUM_CLUSTERERS} \
+    --array=0-$(( $NUM_CLUSTERERS - 1 )) \
     TEdenovo_Step4.sh | \
     cut -d" " -f4)
 jid_step4s=$(sbatch \

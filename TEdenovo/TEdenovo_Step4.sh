@@ -6,7 +6,6 @@
 #SBATCH --time=1-00:00:00
 #SBATCH --output=TEdenovo-step4-%a.stdout
 #SBATCH --job-name="S4_TEdenovo"
-#SBATCH --array=0-1
 #SBATCH -p intel
 
 module load repet/2.5
