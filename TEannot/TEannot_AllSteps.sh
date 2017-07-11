@@ -67,28 +67,29 @@ jid_step4=$(sbatch \
     TEannot_Step4.sh | \
     cut -d" " -f4)
 
-#jid_step5=$(sbatch \
-#    --kill-on-invalid-dep=yes \
-#    --dependency=afterok:$jid_step4 \
-#    TEannot_Step5.sh | \
-#    cut -d" " -f4)
+jid_step5=$(sbatch \
+    --kill-on-invalid-dep=yes \
+    --dependency=afterok:$jid_step4 \
+    TEannot_Step5.sh | \
+    cut -d" " -f4)
 
-#jid_step6=$(sbatch \
-#    --kill-on-invalid-dep=yes \
-#    --dependency=afterok:$jid_step1 \
-#    TEannot_Step6.sh | \
-#    cut -d" " -f4)
+jid_step6=$(sbatch \
+    --kill-on-invalid-dep=yes \
+    --dependency=afterok:$jid_step1 \
+    --array=0-1 \
+    TEannot_Step6.sh | \
+    cut -d" " -f4)
 
-#jid_step7=$(sbatch \
-#    --kill-on-invalid-dep=yes \
-#    --dependency=afterok:$jid_step3:$jid_step5:$jid_step6 \
-#    TEannot_Step7.sh | \
-#    cut -d" " -f4)
+jid_step7=$(sbatch \
+    --kill-on-invalid-dep=yes \
+    --dependency=afterok:$jid_step3:$jid_step5:$jid_step6 \
+    TEannot_Step7.sh | \
+    cut -d" " -f4)
 
-#jid_step8=$(sbatch \
-#    --kill-on-invalid-dep=yes \
-#    --dependency=afterok:$jid_step7 \
-#    TEannot_Step8.sh | \
-#    cut -d" " -f4)
+jid_step8=$(sbatch \
+    --kill-on-invalid-dep=yes \
+    --dependency=afterok:$jid_step7 \
+    TEannot_Step8.sh | \
+    cut -d" " -f4)
 
 echo "Finished submitting all jobs at $(date)"
