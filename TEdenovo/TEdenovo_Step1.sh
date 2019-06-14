@@ -2,11 +2,11 @@
 
 #SBATCH --nodes=1
 #SBATCH --ntasks=4
-#SBATCH --mem-per-cpu=2G
+#SBATCH --mem 8G
 #SBATCH --time=1-00:00:00
-#SBATCH --output=TEdenovo-step1.stdout
-#SBATCH --job-name="S1_TEdenovo"
-#SBATCH -p intel
+#SBATCH --out TEdenovo-step1.stdout
+#SBATCH -J "S1_TEdenovo"
+#SBATCH -p stajichlab
 
 module load repet/2.5
 

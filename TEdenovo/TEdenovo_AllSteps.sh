@@ -2,16 +2,20 @@
 
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --mem-per-cpu=1G
-#SBATCH --time=0:10:00
-#SBATCH --output=TEdenovo-scheduler.stdout
-#SBATCH --job-name="Sched_TEdenovo"
-#SBATCH -p intel
+#SBATCH --mem 2G
+#SBATCH --time=0:30:00
+#SBATCH --out TEdenovo-scheduler.stdout
+#SBATCH -J "Sched_TEdenovo"
+#SBATCH -p stajichlab
 
 # REPET TEdenovo Pipeline Scheduler
 
 # Set project-specific variables
-export ProjectName=$(grep "project_name" TEdenovo.cfg | cut -d" " -f2)
+export ProjectName=$(grep "project_name" TEdenovo.cfg | awk '{print $2}')
+if [ -z $ProjectName ]; then
+    echo "did not defined project_name in config file"
+fi
+
 # (!) modify these to your project/environment
 ## (only choose what REPET supports)
 export SMPL_ALIGNER="Blaster"
@@ -28,10 +32,10 @@ NUM_CLUSTERERS=${#CLUSTERERS_AVAIL_ARRAY[@]}
 
 # Clear the jobs table for the current project
 ## in case last run failed for some reason while sub-jobs were running
-MYSQL_HOST=$(grep "repet_host" TEdenovo.cfg | cut -d" " -f2)
-MYSQL_USER=$(grep "repet_user" TEdenovo.cfg | cut -d" " -f2)
-MYSQL_PASS=$(grep "repet_pw" TEdenovo.cfg | cut -d" " -f2)
-MYSQL_DB=$(grep "repet_db" TEdenovo.cfg | cut -d" " -f2)
+MYSQL_HOST=$(grep "repet_host" TEdenovo.cfg | awk '{print $2}')
+MYSQL_USER=$(grep "repet_user" TEdenovo.cfg | awk '{print $2}')
+MYSQL_PASS=$(grep "repet_pw" TEdenovo.cfg |  awk '{print $2}')
+MYSQL_DB=$(grep "repet_db" TEdenovo.cfg |  awk '{print $2}')
 
 echo "DELETE FROM jobs WHERE groupid LIKE '${ProjectName}_%';" | \
 mysql -h $MYSQL_HOST -u$MYSQL_USER -p$MYSQL_PASS $MYSQL_DB
